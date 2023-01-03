@@ -19,6 +19,7 @@ export default function Home() {
   const [Interval, setInterval] = useState("");
 
   const [Apidata, setApidata] = useState({});
+  const [gotApiData, setGotApiData] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const submitReq = async () => {
@@ -32,6 +33,8 @@ export default function Home() {
     }
     const res = await axios.post("http://localhost:5000/api",data)
     setApidata(res.data)
+    console.log(res.data)
+    setGotApiData(true)
     setLoading(false)
   }
   return (
@@ -50,7 +53,7 @@ export default function Home() {
       </div>
       <div>
       {loading && <CircularProgress />} 
-      {Apidata && <metrictable />}
+      {gotApiData && <Metrictable {...Apidata}/>}
       </div>
     </>
   )
